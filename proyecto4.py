@@ -11,7 +11,7 @@ import mysql.connector
 conn= mysql.connector.connect(
     host="localhost",
     user="root", 
-    password="aleyolen24"
+    password=""
 )
 
 cursor=conn.cursor(buffered=True)
@@ -87,21 +87,21 @@ analisis= df.loc[:, ["City", "Age", "Gender","Financial Stress", "Suicidal Thoug
 
 #CONEXION A BASE DE DATOS, CREACION DE TABLA CON LA DATA EN LA CUAL SE VA A TRABAJAR EN POWER BI
 
-# cursor.execute("USE db")
-# cursor.execute("""CREATE TABLE proyecto4(
-#                id INT AUTO_INCREMENT PRIMARY KEY,
-#                city VARCHAR(60),
-#                age INT,
-#                gender VARCHAR(30),
-#                financialStress INT,
-#                suicidalThoughts VARCHAR(10) 
-# )""")
+cursor.execute("USE db")
+cursor.execute("""CREATE TABLE proyecto4(
+               id INT AUTO_INCREMENT PRIMARY KEY,
+               city VARCHAR(60),
+               age INT,
+               gender VARCHAR(30),
+               financialStress INT,
+               suicidalThoughts VARCHAR(10) 
+)""")
 
-# cursor.execute("SELECT * FROM proyecto4")
+cursor.execute("SELECT * FROM proyecto4")
 
-# for i,v in df.iterrows():
-#     sql="INSERT INTO proyecto4(city, age, gender, financialStress, suicidalThoughts) VALUES (%s, %s, %s, %s, %s)"
-#     valor=(v["City"], v["Age"], v["Gender"], v["Financial Stress"], v["Suicidal Thoughts"] )
+for i,v in df.iterrows():
+    sql="INSERT INTO proyecto4(city, age, gender, financialStress, suicidalThoughts) VALUES (%s, %s, %s, %s, %s)"
+    valor=(v["City"], v["Age"], v["Gender"], v["Financial Stress"], v["Suicidal Thoughts"] )
 
-#     cursor.execute(sql, valor)
-# conn.commit()
+    cursor.execute(sql, valor)
+conn.commit()
